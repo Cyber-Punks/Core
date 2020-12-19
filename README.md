@@ -7,4 +7,6 @@ Ensure high quality feedback without subjecting moderators to harsh comments.
 - [Overview](#overview)
 
 # Overview
+A platform which empowers users to receive feedback while maintaining a safe 
+space for everyone, without creating an echo chamber of positive comments.
 
