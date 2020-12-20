@@ -5,7 +5,9 @@ import {
     Route,
     Link,
 } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+import "./bootstrap.scss";
+
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
@@ -16,7 +18,7 @@ export default function App() {
     return (
         <div className="App">
             <Router>
-                <Navbar bg="light" expand="lg">
+                <Navbar bg="primary" expand="lg">
                     <Navbar.Brand>Cyber Punks</Navbar.Brand>
                     
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
