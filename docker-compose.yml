@@ -15,4 +15,9 @@ services:
     ports:
       - "8000:8000"
     network_mode: host
+  review-service:
+    build:
+      context: ./review-service
+    ports:
+      - "8180:8180"
 
