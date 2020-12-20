@@ -1,12 +1,16 @@
 FROM python
 
-WORKDIR app
+WORKDIR /app/server
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY server .
+COPY manage.py .
+COPY google_platform_key.json .
+WORKDIR /app/server/sentinel_backend
+COPY sentinel_backend .
 
 EXPOSE 8000
-RUN cd server
-RUN python manage.py runserver
+WORKDIR /app/server
+ENTRYPOINT python manage.py runserver
+#ENTRYPOINT sh
