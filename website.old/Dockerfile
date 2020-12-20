@@ -14,4 +14,4 @@ COPY src/ src/
 RUN yarn build
 
 # Serve project
-ENTRYPOINT yarn serve
+ENTRYPOINT yarn start

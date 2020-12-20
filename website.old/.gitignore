@@ -1,0 +1,11 @@
+# dependencies
+/node_modules/
+
+# production
+/build/
+
+# Mac OSX
+.DS_Store
+
+# Development
+*.log
