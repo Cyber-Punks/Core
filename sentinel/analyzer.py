@@ -11,8 +11,9 @@ document = language_v1.Document(content=text, type_=language_v1.Document.Type.PL
 # Available values: NONE, UTF8, UTF16, UTF32
 encoding_type = language_v1.EncodingType.UTF8
 
-# Detects the sentiment of the text
+# Detects the sentiment of the entire text (sentiment, magnitude)
 sentiment = client.analyze_sentiment(request = {'document': document}).document_sentiment
+magnitude = annotations.document_sentiment.magnitude
 
 # Detects the syntax of the text
 response = client.analyze_syntax(request = {'document': document, 'encoding_type': encoding_type})
