@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    #'/home/dylan/hackumass2020/sentinel/server/sentinel_backend/models.py',
+    'sentinel_backend',
 ]
 
 MIDDLEWARE = [
