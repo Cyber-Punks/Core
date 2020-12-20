@@ -44,7 +44,12 @@ class RedditScraper:
     def scrape_subreddit(self, subreddit):
         children = []
 
-        for submission in subreddit.hot(limit=1):
+        first = True
+        for submission in subreddit.hot(limit=2):
+            if first:
+                first = False
+                continue
+            
             children.append(self.scrape_submission(submission))
 
         return {

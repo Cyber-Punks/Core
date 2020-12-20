@@ -50,7 +50,7 @@ function GetContent(props) {
         const body = await resp.json();
         
         setIsLoading(false);
-        setContent(body);
+        setContent(body.content);
     };
 
     let body = (
@@ -102,18 +102,20 @@ function ContentNode(props) {
     }
 
     return (
-        <div>
-            {content.source}
-            {content.name}
-            {content.body}
-            <ul>
-                {content.children.map((c) => (
-                    <li key={c.source}>
-                        <ContentNode content={c} />
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <>
+        <Card>
+            <Card.Body>
+                <Card.Title>{content.name}</Card.Title>
+                <Card.Text>{content.body}</Card.Text>
+            </Card.Body>
+        </Card>
+
+        {content.children.map((c) => (
+            <div key={c.source}>
+                <ContentNode content={c} />
+            </div>
+        ))}
+        </>
     );
 }
 
