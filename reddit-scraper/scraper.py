@@ -31,12 +31,10 @@ class RedditScraper:
 
     def on_get(self, req, res):
         node_url = req.params["uri"]
-        print(node_url)
         (subreddit_name, submission_id, comment_id) = self.parse_url(node_url)
         if (submission_id is None):
             res.status = falcon.HTTP_200
             node = self.scrape_subreddit(self.reddit.subreddit(subreddit_name))
-            print(node)
             res.body = json.dumps(node)
         else:
             res.status = falcon.HTTP_400
@@ -46,7 +44,7 @@ class RedditScraper:
     def scrape_subreddit(self, subreddit):
         children = []
 
-        for submission in subreddit.hot(limit=50):
+        for submission in subreddit.hot(limit=1):
             children.append(self.scrape_submission(submission))
 
         return {
