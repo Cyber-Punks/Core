@@ -30,7 +30,7 @@ class RedditScraper:
 
 
     def on_get(self, req, res):
-        node_url = req.params["node_url"]
+        node_url = req.params["uri"]
         print(node_url)
         (subreddit_name, submission_id, comment_id) = self.parse_url(node_url)
         if (submission_id is None):
@@ -92,5 +92,5 @@ class RedditScraper:
 
 
 api = falcon.API()
-api.add_route("/scrapeNode", RedditScraper())
+api.add_route("/content", RedditScraper())
 # print(scrape_node("https://old.reddit.com/r/2007scape/"))
