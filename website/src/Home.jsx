@@ -23,15 +23,30 @@ width: 300px;
 function GetContent(props) {
     const setContent = props.setContent;
 
+    const [source, setSource] = useState("https://reddit.com/r/dogs");
     const [isLoading, setIsLoading] = useState(false);
     
     const onSubmit = async (e) => {
         e.preventDefault();
 
+        if (source.length === 0) {
+            alert("Must enter a source URL");
+            return;
+        }
+
         // Get content
         setIsLoading(true);
 
-        const resp = await fetch("/example-content.json");
+        const resp = await fetch("http://localhost:8180/api/analyse", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                source: source,
+            }),
+        });
         const body = await resp.json();
         
         setIsLoading(false);
@@ -42,7 +57,14 @@ function GetContent(props) {
         <Form onSubmit={onSubmit}>
             <Form.Group controlId="contentUri">
                 <Form.Label>Content URL</Form.Label>
-                <Form.Control type="text" placeholder="https://reddit.com" />
+                <Form.Control
+                    value={source}
+                    type="text"
+                    placeholder="https://reddit.com"
+                    onChange={(e) => {
+                        setSource(e.target.value);
+                    }}
+                />
             </Form.Group>
 
             <Button variant="primary" type="submit">

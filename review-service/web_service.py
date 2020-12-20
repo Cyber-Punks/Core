@@ -2,6 +2,7 @@ import falcon
 import json
 import urllib
 import requests
+from falcon_cors import CORS
 
 SCORE_CUTOFF = -0.7
 MAGNITUDE_CUTOFF = 0.7
@@ -79,7 +80,7 @@ def check_resource(req):
 
 # Send to scraper
 def scrape(req):
-    data = json.loads(req)['source']
+    data = req.media['source']
     com = data.find('.com') + 5
     trimmed_url = data[com:]
     uri = urllib.parse.urlencode({'uri': trimmed_url})
@@ -100,7 +101,7 @@ def get_analysis(node, bad_subjects):
 
 
 def process_node(node, bad_subjects):
-    resp = requests.post(SENTINEL_URL + '/sentiment', data=node)
+    resp = requests.post(SENTINEL_URL + '/sentiment', data={ 'content': node.name + node.body }).json()
     # resp = {
     #     'naughty': 'False',
     #     'subjects': [
@@ -129,7 +130,15 @@ def process_node(node, bad_subjects):
                     bad_subjects.append(subject)
 
 
-api = application = falcon.API()
+api = application = falcon.API(
+    middleware=[
+                CORS(
+                    allow_all_origins=True,
+                    allow_all_headers=True,
+                    allow_all_methods=True,
+                ).middleware,
+            ])
 
 content = ContentResource()
 api.add_route('/api/analyse', content)
+print("review service on")

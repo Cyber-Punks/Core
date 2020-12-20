@@ -94,3 +94,4 @@ class RedditScraper:
 api = falcon.API()
 api.add_route("/content", RedditScraper())
 # print(scrape_node("https://old.reddit.com/r/2007scape/"))
+print("scraper on")

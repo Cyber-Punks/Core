@@ -1,3 +1,4 @@
 falcon==2.0.0
 requests==2.25.1
 waitress==1.4.4
+falcon_cors==1.1.7

@@ -2,8 +2,8 @@ from google.cloud import language_v1
 import sys
 
 # Thresholds for determining if a statement is too negative
-sentiment_threshold = -.7
-magnitude_threshold = 5
+sentiment_threshold = -0.7
+magnitude_threshold = 0.7
 
 # Input a string and output a dict/json sentiment analysis object
 def analyze_entity_sentiment(text_content):
