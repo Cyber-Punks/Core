@@ -9,3 +9,9 @@ services:
       REDDIT_CLIENT_ID:
       REDDIT_CLIENT_SECRET:
       REDDIT_USER_AGENT:
+  sentinel:
+    build:
+      context: ./sentinel
+    ports:
+      - "8000:8000"
+
