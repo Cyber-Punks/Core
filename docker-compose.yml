@@ -1,0 +1,23 @@
+version: "3.6"
+services:
+  reddit-scraper:
+    build:
+      context: ./reddit-scraper
+    ports:
+      - "8080:8080"
+    environment:
+      REDDIT_CLIENT_ID:
+      REDDIT_CLIENT_SECRET:
+      REDDIT_USER_AGENT:
+  sentinel:
+    build:
+      context: ./sentinel
+    ports:
+      - "8000:8000"
+    network_mode: host
+  review-service:
+    build:
+      context: ./review-service
+    ports:
+      - "8180:8180"
+
