@@ -1,18 +1,14 @@
 from google.cloud import language_v1
 import sys
 
+# Thresholds for determining if a statement is too negative
 sentiment_threshold = -.7
 magnitude_threshold = 5
 
+# Input a string and output a dict/json sentiment analysis object
 def analyze_entity_sentiment(text_content):
-    naughty = False
-
     client = language_v1.LanguageServiceClient()
-
-    # Available types: PLAIN_TEXT, HTML
     type_ = language_v1.Document.Type.PLAIN_TEXT
-
-    # Available values: NONE, UTF8, UTF16, UTF32
     encoding_type = language_v1.EncodingType.UTF8
     document = {"content": text_content, "type_": type_}
 
@@ -23,10 +19,12 @@ def analyze_entity_sentiment(text_content):
     overal_magnitude = sentiment_analysis.document_sentiment.magnitude
 
     # Is the overall statement quite negative?
+    naughty = False
     if (overall_sentiment < sentiment_threshold and overal_magnitude > magnitude_threshold):
         naughty = True
 
-    # Loop through entitites returned from the API
+    # Loop through individual entitities(sentence subjects)
+    # Add their scores to a list
     subjects = []
     for entity in entity_analysis.entities:
         subject_json = {
@@ -37,13 +35,12 @@ def analyze_entity_sentiment(text_content):
 
         subjects.append(subject_json)
 
+    # Build the final dict to be returned
     response_json = {
         "naughty" : naughty,
         "subjects": subjects
     }
 
-    print(response_json)
-    
     return response_json
 
 def main():
